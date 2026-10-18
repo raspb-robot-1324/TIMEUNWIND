@@ -1,0 +1,147 @@
+[gd_scene format=4 uid="uid://c5acgra75gml7"]
+
+[ext_resource type="Script" uid="uid://c4g1214egwff2" path="res://player.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://dfbmkqle7lu23" path="res://assets/clock.png" id="2_clock"]
+[ext_resource type="Texture2D" path="res://assets/tiles.png" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://dmp3w71g6amw" path="res://finish_zone.gd" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://cop3qmarosp7d" path="res://assets/sky_dawn.png" id="5_dawn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7mycd"]
+size = Vector2(58, 58)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_272bh"]
+texture = ExtResource("3_lquwl")
+texture_region_size = Vector2(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_5vw27"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_272bh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(380, 80)
+
+[node name="Node" type="Node" unique_id=1586391277]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=624279840]
+position = Vector2(1080, 608)
+script = ExtResource("1_h2yge")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=239625120]
+texture = ExtResource("2_clock")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=196953733]
+shape = SubResource("RectangleShape2D_7mycd")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1517759504]
+position = Vector2(-160, 150)
+zoom = Vector2(0.55, 0.55)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=879111918]
+scale = Vector2(2.5, 2.5)
+tile_map_data = PackedByteArray("AAAQAAMAAAAAAAAAAAARAAMAAAAAAAAAAADR/wQAAAAAAAAAAAARAAQAAAABAAAAAADR/wUAAAABAAAAAAARAAUAAAABAAAAAADR/wYAAAABAAAAAADS/wYAAAAAAAAAAADT/wYAAAAAAAAAAADU/wYAAAAAAAAAAADV/wYAAAAAAAAAAADW/wYAAAAAAAAAAADX/wYAAAAAAAAAAADr/wYAAAAAAAAAAADs/wYAAAAAAAAAAAARAAYAAAABAAAAAADY/wcAAAAAAAAAAADm/wcAAAAAAAAAAADn/wcAAAAAAAAAAADw/wcAAAAAAAAAAADx/wcAAAAAAAAAAAARAAcAAAABAAAAAADZ/wgAAAAAAAAAAAD0/wgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAABAAAAAADa/wkAAAAAAAAAAAD1/wkAAAAAAAAAAADb/woAAAAAAAAAAADh/woAAAAAAAAAAAD2/woAAAAAAAAAAAAGAAoAAAAAAAAAAAAHAAoAAAAAAAAAAADc/wsAAAAAAAAAAADh/wsAAAABAAAAAAD3/wsAAAAAAAAAAAD6/wsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAADe/wwAAAAAAAAAAADf/wwAAAAAAAAAAADg/wwAAAAAAAAAAADh/wwAAAABAAAAAADi/wwAAAAAAAAAAADj/wwAAAAAAAAAAADk/wwAAAAAAAAAAAD4/wwAAAAAAAAAAAD6/wwAAAABAAAAAAD8/wwAAAAAAAAAAAD//wwAAAAAAAAAAAD6/w0AAAABAAAAAAD7/w0AAAAAAAAAAAD8/w0AAAABAAAAAAD9/w0AAAAAAAAAAAD+/w0AAAAAAAAAAAD//w0AAAABAAAAAAAAAA0AAAAAAAAAAAABAA0AAAAAAAAAAAACAA0AAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_5vw27")
+
+[node name="Timer" type="Timer" parent="." unique_id=1578348976]
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1525483055]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=215491838]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 8.0
+offset_right = 260.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.16, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "TIME/UNWIND"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Control" unique_id=1840466099]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 180.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.16, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "00:00"
+
+[node name="PeriodLabel" type="Label" parent="CanvasLayer/Control" unique_id=1840466100]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 16.0
+offset_top = 52.0
+offset_right = 420.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.16, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "Dawn    1 / 10"
+
+[node name="VictoryLabel" type="Label" parent="CanvasLayer/Control" unique_id=200376727]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -70.0
+offset_right = 220.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.16, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 48
+text = "FULL CIRCLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinishZone" type="Area2D" parent="." unique_id=1492928725]
+script = ExtResource("4_1bvp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishZone" unique_id=1926793091]
+position = Vector2(-3440, 430)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=689527081]
+unique_name_in_owner = true
+layer = -1
+
+[node name="Background" type="Sprite2D" parent="BackgroundLayer" unique_id=1672205801]
+unique_name_in_owner = true
+position = Vector2(576, 324)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_dawn")
+
+[connection signal="body_entered" from="FinishZone" to="Player" method="_on_finish_zone_body_entered"]
